@@ -1,0 +1,58 @@
+--- a/config.def.h	2014-12-06 14:21:17.501930413 +0100
++++ b/config.def.h	2014-12-06 14:21:50.582932493 +0100
+@@ -1,3 +1,4 @@
++#include <unistd.h>
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* appearance */
+@@ -22,6 +23,7 @@
+ 	/* class      instance    title       tags mask     isfloating   monitor */
+ 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
+ 	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
++	{ "smplayer2",NULL,       NULL,       1 << 5,       True,        -1 },
+ };
+ 
+ /* layout(s) */
+@@ -37,7 +39,7 @@
+ };
+ 
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -49,7 +51,9 @@
+ 
+ /* commands */
+ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+-static const char *termcmd[]  = { "uxterm", NULL };
++static const char *termcmd[]  = { "terminology", NULL };
++static const char *suspendcmd[] = { "/home/tcech/bin/my_suspend.sh", NULL };
++static const char *lockcmd[]  = { "slock", NULL };
+ 
+ #include "selfrestart.c"
+ 
+@@ -57,6 +61,7 @@
+ 	/* modifier                     key        function        argument */
+ 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+ 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
++	{ 0,                            0x1008ff2d,spawn,          {.v = lockcmd } },
+ 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+ 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+ 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+@@ -87,7 +92,8 @@
+ 	TAGKEYS(                        XK_7,                      6)
+ 	TAGKEYS(                        XK_8,                      7)
+ 	TAGKEYS(                        XK_9,                      8)
+-    { MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
++	{ MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
++	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = suspendcmd } },
+ 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+ };
+ 
+@@ -107,3 +113,4 @@
+ 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
+ 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+ };
++
