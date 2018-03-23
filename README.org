@@ -1,0 +1,4 @@
+* guix-extra
+Let's collect my personal packages which has no chance to get to main
+Guix repository in some public spot.
+
