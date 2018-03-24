@@ -20,14 +20,17 @@
 ;; 	       (base32
 ;; 		"14argl6ywkggdvgiycfx4jl2d7290f631ly59wfggj4vjx27sbqg"))))))
 
-(define-public kernel-config
-  "/Devel/extra/gnu/packages/kernel-x1-sw1.config")
+(define-public x1-kernel-config
+  "/Devel/git/guix-extra/gnu/packages/kernel-x1-sw1.config")
+
+(define-public vulture-kernel-config
+  "/Devel/git/guix-extra/gnu/packages/kernel-vulture-sw1.config")
 
 
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "4.15.10")
+    (version "4.15.12")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -35,14 +38,25 @@
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "14i6028l1y8y88sw5cbfihzs3wp66vwy33g1598i0dkyf1sbw5cg"))))))
+                "0j7l907m51y05cd1sqf3sn7vx4n6c07kn7q0ndnyg6wqb7h667h3"))))))
 
 (define-public linux-x1-sw1
   (package
     (inherit linux-vanilla)
     (name "linux-x1-sw1")
     (native-inputs
-     `(("kconfig" ,kernel-config)
+     `(("kconfig" ,x1-kernel-config)
+       ("libelf" ,libelf)
+       ,@(alist-delete "kconfig"
+                       (package-native-inputs linux-vanilla))))))
+
+
+(define-public linux-vulture-sw1
+  (package
+    (inherit linux-vanilla)
+    (name "linux-vulture-sw1")
+    (native-inputs
+     `(("kconfig" ,vulture-kernel-config)
        ("libelf" ,libelf)
        ,@(alist-delete "kconfig"
                        (package-native-inputs linux-vanilla))))))
