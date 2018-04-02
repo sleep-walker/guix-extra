@@ -38,7 +38,7 @@
    (source
     (origin
      (inherit (package-source conkeror))
-     (patches (list (search-patch "/Devel/extra/gnu/packages/patches/ctrl-click.patch")))))))
+     (patches (list (search-patch "/Devel/git/guix-extra/gnu/packages/patches/ctrl-click.patch")))))))
 
 (define-public my-dwm
   (package

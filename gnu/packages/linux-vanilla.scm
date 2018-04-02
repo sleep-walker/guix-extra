@@ -20,8 +20,11 @@
 ;; 	       (base32
 ;; 		"14argl6ywkggdvgiycfx4jl2d7290f631ly59wfggj4vjx27sbqg"))))))
 
-(define-public kernel-config
+(define-public x1-kernel-config
   "/Devel/git/guix-extra/gnu/packages/kernel-x1-sw1.config")
+
+(define-public vulture-kernel-config
+  "/Devel/git/guix-extra/gnu/packages/kernel-vulture-sw1.config")
 
 
 (define-public linux-vanilla
@@ -42,7 +45,18 @@
     (inherit linux-vanilla)
     (name "linux-x1-sw1")
     (native-inputs
-     `(("kconfig" ,kernel-config)
+     `(("kconfig" ,x1-kernel-config)
+       ("libelf" ,libelf)
+       ,@(alist-delete "kconfig"
+                       (package-native-inputs linux-vanilla))))))
+
+
+(define-public linux-vulture-sw1
+  (package
+    (inherit linux-vanilla)
+    (name "linux-vulture-sw1")
+    (native-inputs
+     `(("kconfig" ,vulture-kernel-config)
        ("libelf" ,libelf)
        ,@(alist-delete "kconfig"
                        (package-native-inputs linux-vanilla))))))
