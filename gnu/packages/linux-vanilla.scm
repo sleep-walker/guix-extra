@@ -21,13 +21,13 @@
 ;; 		"14argl6ywkggdvgiycfx4jl2d7290f631ly59wfggj4vjx27sbqg"))))))
 
 (define-public kernel-config
-  "/Devel/extra/gnu/packages/kernel-x1-sw1.config")
+  "/Devel/git/guix-extra/gnu/packages/kernel-x1-sw1.config")
 
 
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "4.15.10")
+    (version "4.16")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -35,7 +35,7 @@
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "14i6028l1y8y88sw5cbfihzs3wp66vwy33g1598i0dkyf1sbw5cg"))))))
+                "1f91pf3lq3kmbg82k4v8bwxcl4r4iaixrx6nsmrh4flz7j7drxk3"))))))
 
 (define-public linux-x1-sw1
   (package
