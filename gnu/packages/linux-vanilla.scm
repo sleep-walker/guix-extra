@@ -1,4 +1,6 @@
 (define-module (gnu packages linux-vanilla)
+  #:use-module (gnu packages bison)
+  #:use-module (gnu packages flex)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages elf)
   #:use-module (guix build-system trivial)
@@ -6,7 +8,7 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (srfi srfi-1)
-  #:export (initrd-x1-sw1))
+  #:export (initrd-x1-sw2))
 
 ;; (define-public linux-vanilla
 ;;   (package
@@ -20,17 +22,25 @@
 ;; 	       (base32
 ;; 		"14argl6ywkggdvgiycfx4jl2d7290f631ly59wfggj4vjx27sbqg"))))))
 
-(define-public x1-kernel-config
-  "/Devel/git/guix-extra/gnu/packages/kernel-x1-sw1.config")
+(define-public doom-version "sw2")
+(define-public vulture-version "sw1")
 
-(define-public vulture-kernel-config
-  "/Devel/git/guix-extra/gnu/packages/kernel-vulture-sw1.config")
+(define (kernel-versions key)
+  (cdr (assoc key
+             '(("doom" . "sw2")
+               ("vulture" . "sw1")))))
+
+;; (define-public x1-kernel-config
+;;   "/Devel/git/guix-extra/gnu/packages/kernel-x1-sw2.config")
+
+;; (define-public vulture-kernel-config
+;;   "/Devel/git/guix-extra/gnu/packages/kernel-vulture-sw1.config")
 
 
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "4.16")
+    (version "4.16.2")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -38,28 +48,33 @@
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "1f91pf3lq3kmbg82k4v8bwxcl4r4iaixrx6nsmrh4flz7j7drxk3"))))))
-
-(define-public linux-x1-sw1
-  (package
-    (inherit linux-vanilla)
-    (name "linux-x1-sw1")
+                "157q43px707nizqwzi5nk87c0nvdif9fbi751f71wpgfp3iiy2s7"))))
     (native-inputs
-     `(("kconfig" ,x1-kernel-config)
-       ("libelf" ,libelf)
-       ,@(alist-delete "kconfig"
-                       (package-native-inputs linux-vanilla))))))
+     `(("libelf" ,libelf)
+       ("bison" ,bison)
+       ("flex" ,flex)
+       ,@(package-native-inputs linux-libre)))))
 
+(define (konfig machine version)
+  (string-append "/Devel/git/guix-extra/gnu/packages/kernel-"
+                 machine "-" version ".config"))
 
-(define-public linux-vulture-sw1
-  (package
-    (inherit linux-vanilla)
-    (name "linux-vulture-sw1")
-    (native-inputs
-     `(("kconfig" ,vulture-kernel-config)
-       ("libelf" ,libelf)
-       ,@(alist-delete "kconfig"
-                       (package-native-inputs linux-vanilla))))))
+(define (linux-for-my-machine machine)
+  (let ((swversion (kernel-versions machine)))
+      (package
+       (inherit linux-vanilla)
+       (name (string-append "linux-" machine))
+       (version (string-append (package-version linux-vanilla) "-" swversion))
+       (native-inputs
+        `(("kconfig" ,(konfig machine swversion))
+          ,@(alist-delete "kconfig"
+                          (package-native-inputs linux-vanilla)))))))
+
+(define-public linux-doom
+  (linux-for-my-machine "doom"))
+(define-public linux-vulture
+  (linux-for-my-machine "vulture"))
+
 
 
 (define-public linux-vanilla-headers
@@ -102,8 +117,9 @@
 
 (define-public linux-firmware-initrd-x1-sw1
   (package
-    (name "linux-firmware-initrd-x1-sw1")
-    (version (package-version linux-firmware))
+    (name "linux-firmware-initrd-doom")
+    (version (string-append (package-version linux-firmware)
+                            "-" (kernel-versions "doom")))
     (home-page "https://sleep-walker.cz")
     (synopsis "FW files required for initrd")
     (build-system trivial-build-system)
@@ -130,23 +146,10 @@
     (source #f)
     (license #f)
     (description "Initrd firmware files.")))
-      ;; (gexp->derivation
-      ;;                                     "initrd-fw-x1-sw1"
-      ;;                                     #~(call-with-output-fle
-      ;;                                        #$output
-      ;;                                        (begin
-      ;;                                          (mkdir #$output)
-      ;;                                          (chdir #$output)
-      ;;                                          (copy-file
-      ;;                                           (string-append
-      ;;                                            #$linux-firmware
-      ;;                                            "/lib/firmware/iwlwifi-8265-34.ucode")
-      ;;                                           (string-append #$output
-      ;;                                                          "/lib/firmware/iwlwifi-8265-34.ucode")))))
 
-(define* (initrd-x1-sw1 file-systems
+(define* (initrd-doom file-systems
                         #:key
-                        (linux linux-x1-sw1)
+                        (linux linux-doom)
                         (mapped-devices '())
                         qemu-networking?
                         volatile-root?
@@ -158,7 +161,7 @@
     (file-system-packages file-systems #:volatile-root? volatile-root?))
 
   (raw-initrd file-systems
-              #:linux linux-x1-sw1
+              #:linux linux-doom
               #:linux-modules '()
               #:mapped-devices mapped-devices
               #:helper-packages helper-packages
