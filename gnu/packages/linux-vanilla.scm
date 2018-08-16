@@ -10,37 +10,16 @@
   #:use-module (srfi srfi-1)
   #:export (initrd-x1-sw2))
 
-;; (define-public linux-vanilla
-;;   (package
-;;     (inherit linux-libre)
-;;     (name "linux-vanilla")
-;;     (version "4.0")
-;;     (source (origin
-;; 	      (method url-fetch)
-;; 	      (uri (string-append "https://www.kernel.org/pub/linux/kernel/v4.x/linux-" version ".tar.xz"))
-;; 	      (sha256
-;; 	       (base32
-;; 		"14argl6ywkggdvgiycfx4jl2d7290f631ly59wfggj4vjx27sbqg"))))))
-
-(define-public doom-version "sw2")
-(define-public vulture-version "sw1")
-
 (define (kernel-versions key)
   (cdr (assoc key
              '(("doom" . "sw2")
                ("vulture" . "sw1")))))
 
-;; (define-public x1-kernel-config
-;;   "/Devel/git/guix-extra/gnu/packages/kernel-x1-sw2.config")
-
-;; (define-public vulture-kernel-config
-;;   "/Devel/git/guix-extra/gnu/packages/kernel-vulture-sw1.config")
-
 
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "4.16.2")
+    (version "4.18.1")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -48,7 +27,7 @@
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "157q43px707nizqwzi5nk87c0nvdif9fbi751f71wpgfp3iiy2s7"))))
+                "0hps1h8rs1cc8385m69754vwbjmwasr7bfv9f9nsv8fmx73aspvj"))))
     (native-inputs
      `(("libelf" ,libelf)
        ("bison" ,bison)
