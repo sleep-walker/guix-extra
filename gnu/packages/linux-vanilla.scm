@@ -19,7 +19,7 @@
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "4.18.1")
+    (version "4.18.7")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -27,7 +27,7 @@
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "0hps1h8rs1cc8385m69754vwbjmwasr7bfv9f9nsv8fmx73aspvj"))))
+                "0cgpb8zx7ckd9lmmaas6r1vszbz9lhrn4w1njw3yaw9a4rg44fzh"))))
     (native-inputs
      `(("libelf" ,libelf)
        ("bison" ,bison)
