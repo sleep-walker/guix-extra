@@ -19,20 +19,15 @@
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "4.18.7")
+    (version "4.20")
     (source (origin
               (method url-fetch)
               (uri (string-append
-                    "https://cdn.kernel.org/pub/linux/kernel/v4.x/"
+                    "mirror://kernel.org/linux/kernel/v4.x/"
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "0cgpb8zx7ckd9lmmaas6r1vszbz9lhrn4w1njw3yaw9a4rg44fzh"))))
-    (native-inputs
-     `(("libelf" ,libelf)
-       ("bison" ,bison)
-       ("flex" ,flex)
-       ,@(package-native-inputs linux-libre)))))
+                "0f14l6mb5c4rwpqjbcb2yrvk1bmmiyh0mpw24fbl7rr26lc2625d"))))))
 
 (define (konfig machine version)
   (string-append "/Devel/git/guix-extra/gnu/packages/kernel-"
