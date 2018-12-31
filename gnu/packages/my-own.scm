@@ -19,7 +19,6 @@
 (define-module (gnu packages my-own)
   #:use-module (gnu packages)
   #:use-module (gnu packages compression)
-  #:use-module (gnu packages conkeror)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages gnuzilla)
   #:use-module (gnu packages kerberos)
@@ -36,18 +35,6 @@
   #:use-module (guix utils)
   #:use-module (srfi srfi-1)
   )
-
-(define-public my-conkeror
-  (package
-   (inherit conkeror)
-   (name "my-conkeror")
-    ;; (inputs
-    ;;  `(("my-icecat" ,my-icecat)
-    ;;    ,@(alist-delete "icecat" (package-inputs conkeror))))
-   (source
-    (origin
-     (inherit (package-source conkeror))
-     (patches (list (search-patch "/Devel/git/guix-extra/gnu/packages/patches/ctrl-click.patch")))))))
 
 (define-public my-dwm
   (package
