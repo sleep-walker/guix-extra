@@ -21,6 +21,7 @@
   #:use-module (gnu packages compression)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages gnuzilla)
+  #:use-module (gnu packages enlightenment)
   #:use-module (gnu packages kerberos)
   #:use-module (gnu packages suckless)
   #:use-module (gnu packages gettext)
@@ -97,6 +98,15 @@
    (source
     (origin
       (inherit (package-source p7zip))
+      (snippet #f)))))
+
+(define-public my-terminology
+  (package
+   (inherit terminology)
+   (name "my-terminology")
+   (source
+    (origin
+      (inherit (package-source terminology))
       (snippet #f)))))
 
 (define-public sdcv
