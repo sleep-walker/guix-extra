@@ -8,11 +8,11 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (srfi srfi-1)
-  #:export (initrd-x1-sw2))
+  #:export (initrd-doom))
 
 (define (kernel-versions key)
   (cdr (assoc key
-             '(("doom" . "sw2")
+             '(("doom" . "sw3")
                ("vulture" . "sw1")))))
 
 
@@ -89,7 +89,7 @@
       (description "Linux firmware.")
       (license #f))))
 
-(define-public linux-firmware-initrd-x1-sw1
+(define-public linux-firmware-initrd-doom
   (package
     (name "linux-firmware-initrd-doom")
     (version (string-append (package-version linux-firmware)
