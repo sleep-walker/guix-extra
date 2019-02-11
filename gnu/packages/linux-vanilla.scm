@@ -12,8 +12,9 @@
 
 (define (kernel-versions key)
   (cdr (assoc key
-             '(("doom" . "sw4")
-               ("vulture" . "sw1")))))
+              '(("doom" . "sw4")
+                ("loki" . "sw1")
+                ("vulture" . "sw1")))))
 
 
 (define-public linux-vanilla
@@ -46,6 +47,8 @@
 
 (define-public linux-doom
   (linux-for-my-machine "doom"))
+(define-public linux-loki
+  (linux-for-my-machine "loki"))
 (define-public linux-vulture
   (linux-for-my-machine "vulture"))
 
