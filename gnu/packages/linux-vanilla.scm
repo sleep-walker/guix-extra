@@ -12,7 +12,7 @@
 
 (define (kernel-versions key)
   (cdr (assoc key
-              '(("doom" . "sw4")
+              '(("doom" . "sw5")
                 ("loki" . "sw1")
                 ("vulture" . "sw1")))))
 
@@ -20,7 +20,7 @@
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "4.20.8")
+    (version "5.0.3")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -28,7 +28,7 @@
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "0qnh0h7c7ni7j1cgm20sqsfkbri98bckxms494w9ig539b2ac35n"))))))
+                "12gzpz53kgznk5xg2cgbhfrgxflbx5zsnbpwki8zsjvq59wk7ma0"))))))
 
 (define (konfig machine version)
   (string-append "/Devel/git/guix-extra/gnu/packages/kernel-"
