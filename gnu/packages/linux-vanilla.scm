@@ -20,7 +20,7 @@
 (define-public linux-vanilla
   (package
     (inherit linux-libre)
-    (version "5.0.3")
+    (version "5.0.8")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -28,7 +28,7 @@
                     "linux-" version ".tar.xz"))
               (sha256
                (base32
-                "12gzpz53kgznk5xg2cgbhfrgxflbx5zsnbpwki8zsjvq59wk7ma0"))))))
+                "0dalr3vym2ixmblnlrw10dfx0icdf2aab38z2j9y1qfcx128140i"))))))
 
 (define (konfig machine version)
   (string-append "/Devel/git/guix-extra/gnu/packages/kernel-"
