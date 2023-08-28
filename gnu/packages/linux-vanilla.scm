@@ -12,7 +12,7 @@
 
 (define (kernel-versions key)
   (cdr (assoc key
-              '(("doom" . "sw5")
+              '(("doom" . "sw6")
                 ("loki" . "sw1")
                 ("vulture" . "sw1")))))
 
