@@ -62,10 +62,10 @@
     (source (origin (inherit (package-source linux-vanilla))))))
 
 (define-public linux-firmware
-  (let ((commit "7344ec9e1df9e27d105ed48d2db99e22370236de"))
+  (let ((commit "c92d9798064e8bcc62690ab75e0cf2b83eabad54"))
     (package
       (name "linux-firmware")
-      (version (string-append "2018.02.22-" (string-take commit 7)))
+      (version (string-append "2023.08.04-" (string-take commit 7)))
       (source (origin
                 (method git-fetch)
                 (uri (git-reference
@@ -74,7 +74,7 @@
                         (commit commit)))
                 (sha256
                  (base32
-                  "1gg0iblrrz22zmj5yq82nbnk1b7zs0rdzi2f8c0pi77gqp5dz0hj"))))
+                  "1yvsyd5mbhkvd79mwj78k2b6q7ld3251xr2ip30ll7z5mi0wxs2d"))))
       (build-system trivial-build-system)
       (arguments
        `(#:modules ((guix build utils))
