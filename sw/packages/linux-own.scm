@@ -2,7 +2,7 @@
 ;;  #:use-module (guix guix)
   #:use-module (guix packages)
   #:use-module (gnu packages linux)
-  #:use-module ((gnu packages) #:select (search-auxiliary-file))
+;;  #:use-module ((gnu packages) #:select (search-path))
   #:use-module (nongnu packages linux))
 
 ;; (define (config-linux package-linux config-path)
@@ -20,5 +20,5 @@
 (define-public linux-doom
   (corrupt-linux linux-libre-6.4
 		 #:name "linux-doom"
-		 #:defconfig "/Devel/git/guix-extra/sw/packages/aux-files/kernel-doom-sw8.config"))
+		 #:defconfig (search-path '("/Devel/git/guix-extra/sw/packages/aux-files/") "kernel-doom-sw8.config")))
 
