@@ -76,7 +76,8 @@ on hardware which requires nonfree software to function."))))
 
 
 (define-public linux-doom
-  (sw-corrupt-linux linux-libre-6.4
+  (corrupt-linux linux-libre-6.4
 		 #:name "linux-doom"
-		 #:configuration-file "/Devel/git/guix-extra/sw/packages/aux-files/kernel-doom-sw8.config"))
+;;		 #:configuration-file "/Devel/git/guix-extra/sw/packages/aux-files/kernel-doom-sw8.config"
+		 ))
 
