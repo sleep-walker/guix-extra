@@ -20,5 +20,5 @@
 (define-public linux-doom
   (corrupt-linux linux-libre-6.4
 		 #:name "linux-doom"
-		 #:defconfig (search-path '("/Devel/git/guix-extra/sw/packages/aux-files/") "kernel-doom-sw8.config")))
+		 #:configuration-file (search-path '("/Devel/git/guix-extra/sw/packages/aux-files/") "kernel-doom-sw8.config")))
 
