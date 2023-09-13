@@ -74,10 +74,33 @@
        "The unmodified Linux kernel, including nonfree blobs, for running Guix System
 on hardware which requires nonfree software to function."))))
 
+(define (%upstream-linux-source version hash)
+  (origin
+    (method url-fetch)
+    (uri (string-append "mirror://kernel.org"
+                        "/linux/kernel/v" (version-major version) ".x/"
+                        "linux-" version ".tar.xz"))
+    (sha256 hash)))
+
+(define sw-kernel-version "6.4.15")
+
+(define sw-linux-sources
+  (%upstream-linux-source
+   sw-kernel-version
+   "1phlx375ln5pslw5vjqm029cdv6pzf4ang10xlrf90x5sb4fgy93"))
 
 (define-public linux-doom
-  (sw-corrupt-linux linux-libre-6.4
-		 #:name "linux-doom"
-;;		 #:configuration-file "/Devel/git/guix-extra/sw/packages/aux-files/kernel-doom-sw8.config"
-		 ))
+  (make-linux-libre* sw-kernel-version
+                     ""  ; no revision
+		     sw-linux-sources
+		       ;linux-libre-6.4-source
+                     '("x86_64-linux")  ; supported-systems
+		     #:extra-version "sw8"
+                     #:configuration-file kernel-config))
+
+;; (define-public linux-doom
+;;   (sw-corrupt-linux linux-libre-6.4
+;; 		 #:name "linux-doom"
+;; ;;		 #:configuration-file "/Devel/git/guix-extra/sw/packages/aux-files/kernel-doom-sw8.config"
+;; 		 ))
 
